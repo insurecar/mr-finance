@@ -1,6 +1,7 @@
 import { Component } from "react";
 import Balance from "./Balance";
-import Transaction from "./Transaction";
+import Transactions from "./Transactions";
+import Form from "./Form";
 
 let id = 0;
 
@@ -11,29 +12,13 @@ class App extends Component {
       balance: 0,
       transactions: [],
     };
-    this.onIncrease = this.onIncrease.bind(this);
     console.log("Constructor");
   }
 
-  onIncrease = () => {
+  onChange = (value) => {
     this.setState({
-      balance: this.state.balance + 1,
-      transactions: [
-        ...this.state.transactions,
-        { label: "increase", value: 1 },
-      ],
-      id: ++id,
-    });
-  };
-
-  onDecrease = () => {
-    this.setState({
-      balance: this.state.balance - 1,
-      transactions: [
-        ...this.state.transactions,
-        { label: "decrease", value: -1 },
-      ],
-      id: ++id,
+      balance: this.state.balance + +value,
+      transactions: [...this.state.transactions, { value, label: "change" }],
     });
   };
 
@@ -41,12 +26,9 @@ class App extends Component {
     return (
       <div>
         <Balance balance={this.state.balance} />
-        <button onClick={this.onIncrease}>Додати 1</button>
-        <button onClick={this.onDecrease}>Відняти 1</button>
+        <Form onChange={this.onChange} />
         <hr />
-        {this.state.transactions.map((transaction) => (
-          <Transaction key={transaction.key} transaction={transaction} />
-        ))}
+        <Transactions transactions={this.state.transactions} />
       </div>
     );
   }
