@@ -1,4 +1,5 @@
 import Transaction from "./Transaction";
+import PropTypes from "prop-types";
 
 const Transactions = ({ transactions }) => {
   return (
@@ -8,6 +9,14 @@ const Transactions = ({ transactions }) => {
       ))}
     </div>
   );
+};
+
+Transactions.propTypes = {
+  transactions: PropTypes.array,
+};
+
+Transactions.defaultProps = {
+  transactions: [],
 };
 
 export default Transactions;
